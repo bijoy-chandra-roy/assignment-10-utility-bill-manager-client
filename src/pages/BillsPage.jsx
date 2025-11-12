@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLoaderData } from "react-router";
 
-const Bills = () => {
+const BillsPage = () => {
   const initialBills = useLoaderData();
   console.log(initialBills);
   const [bills, setBills] = useState(initialBills);
@@ -82,4 +82,4 @@ const Bills = () => {
   );
 };
 
-export default Bills;
+export default BillsPage;

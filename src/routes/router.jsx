@@ -1,31 +1,41 @@
-import React from "react";
 import { createBrowserRouter } from "react-router";
 import App from "../App";
-import Bills from "../pages/Bills";
-import Home from "../pages/Home";
-import BillInfo from "../pages/BillInfo";
+import BillDetailsPage from "../pages/BillDetailsPage";
 import Update from "../pages/Update";
+import HomePage from "../pages/HomePage";
+import BillsPage from "../pages/BillsPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from './../pages/RegisterPage';
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
-    errorElement: <h1>Error</h1>,
+    errorElement: <NotFoundPage/>,
     children: [
       {
         index: true,
-        Component: Home,
+        Component: HomePage,
+      },
+      {
+        path: "login",
+        Component: LoginPage,
+      },
+      {
+        path: "register",
+        Component: RegisterPage,
       },
       {
         path: "bills",
         loader: () => fetch("http://localhost:3000/bills"),
-        Component: Bills,
+        Component: BillsPage,
       },
       {
         path: "bills/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:3000/bills/${params.id}`),
-        Component: BillInfo,
+        Component: BillDetailsPage,
       },
       {
         path: "update/:id",

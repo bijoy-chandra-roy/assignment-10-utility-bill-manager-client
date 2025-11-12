@@ -1,7 +1,7 @@
 import React from "react";
 import { useLoaderData, Link } from "react-router";
 
-const BillInfo = () => {
+const BillDetailsPage = () => {
   const bill = useLoaderData();
 
   if (!bill || !bill._id) {
@@ -24,4 +24,4 @@ const BillInfo = () => {
   );
 };
 
-export default BillInfo;
+export default BillDetailsPage;

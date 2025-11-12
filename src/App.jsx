@@ -1,14 +1,10 @@
-import { Outlet } from "react-router";
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
     <>
-      <Navbar></Navbar>
-      <Outlet></Outlet>
-      <Footer></Footer>
+      <MainLayout></MainLayout>
     </>
   );
 }
