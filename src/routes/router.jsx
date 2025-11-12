@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router";
 import App from "../App";
 import Bills from "../pages/Bills";
 import Home from "../pages/Home";
+import BillInfo from "../pages/BillInfo";
+import Update from "../pages/Update";
 
 const router = createBrowserRouter([
   {
@@ -16,11 +18,20 @@ const router = createBrowserRouter([
       },
       {
         path: "bills",
-        loader: async () => {
-          const res = await fetch("http://localhost:3000/bills");
-          return res.json();
-        },
+        loader: () => fetch("http://localhost:3000/bills"),
         Component: Bills,
+      },
+      {
+        path: "bills/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/bills/${params.id}`),
+        Component: BillInfo,
+      },
+      {
+        path: "update/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/bills/${params.id}`),
+        Component: Update,
       },
     ],
   },

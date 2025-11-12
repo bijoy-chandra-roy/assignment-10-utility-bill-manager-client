@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 const Bills = () => {
   const initialBills = useLoaderData();
@@ -27,8 +27,24 @@ const Bills = () => {
           newPayment._id = data.insertedId;
           const newPayments = [...bills, newPayment];
           setBills(newPayments);
-          alert("payment cleared!");
+          console.log("payment cleared!");
           e.target.reset();
+        }
+      });
+  };
+
+  const handleDelete = (id) => {
+    console.log("Delete", id);
+    fetch(`http://localhost:3000/bills/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("after delete data is... ", data);
+        if (data.deletedCount) {
+          console.log("Deleted successfully");
+          const remaining = bills.filter((bill) => bill._id !== id);
+          setBills(remaining);
         }
       });
   };
@@ -50,7 +66,15 @@ const Bills = () => {
       <ul>
         {bills.map((bill) => (
           <li key={bill._id}>
-            {bill.title} - ${bill.amount}
+            {bill.title} - ${bill.amount}{" "}
+            <Link to={`/bills/${bill._id}`}>Details</Link>
+            <Link to={`/update/${bill._id}`}>Update</Link>
+            <button
+              onClick={() => handleDelete(bill._id)}
+              className="p-4 bg-black m-3"
+            >
+              X
+            </button>
           </li>
         ))}
       </ul>
