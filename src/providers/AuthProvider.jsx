@@ -107,7 +107,7 @@ const AuthProvider = ({ children }) => {
 
       setUser(auth.currentUser || googleUser);
       return result;
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -129,7 +129,9 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setLoading(true);
-    return signOut(auth).finally(() => setLoading(false));
+    return signOut(auth)
+      .then(() => setUser(null))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {

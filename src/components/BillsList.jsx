@@ -23,7 +23,7 @@ const BillsList = ({ bills, onDelete }) => {
             <p className="text-sm text-gray-600">Category: {bill.category}</p>
             <p className="text-sm text-gray-600">Location: {bill.location || "N/A"}</p>
             <p className="text-sm text-gray-600">
-              Date: {new Date(bill.date).toLocaleDateString()}
+              Date: {new Date(bill.date).toLocaleDateString('en-GB')}
             </p>
             <p className="text-sm font-semibold">Amount: ${bill.amount}</p>
 

@@ -129,7 +129,7 @@ const RegisterPage = () => {
 
           <p className="text-center text-sm font-semibold mt-5">
             Already have an account?{" "}
-            <Link className="text-secondary hover:text-green-600 hover:underline transition" to="/login">
+            <Link className="text-secondary hover:underline transition" to="/login">
               Log In
             </Link>
           </p>

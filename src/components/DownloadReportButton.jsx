@@ -13,7 +13,7 @@ const DownloadReportButton = ({ bills }) => {
             bill.title,
             bill.category,
             `$${bill.amount}`,
-            new Date(bill.date).toLocaleDateString(),
+            new Date(bill.date).toLocaleDateString('en-GB'),
             bill.location || "N/A",
         ]);
 

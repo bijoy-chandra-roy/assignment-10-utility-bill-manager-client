@@ -25,7 +25,7 @@ const RecentBills = () => {
             <h4 className="text-lg font-medium">{bill.title}</h4>
             <p className="text-sm text-gray-600">Category: {bill.category}</p>
             <p className="text-sm text-gray-600">Location: {bill.location || "N/A"}</p>
-            <p className="text-sm text-gray-600">Date: {new Date(bill.date).toLocaleDateString()}</p>
+            <p className="text-sm text-gray-600">Date: {new Date(bill.date).toLocaleDateString('en-GB')}</p>
             <p className="text-sm font-semibold">Amount: ${bill.amount}</p>
             <Link
               to={`/bills/${bill._id}`}
