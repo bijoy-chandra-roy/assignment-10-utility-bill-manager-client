@@ -18,41 +18,40 @@ const slides = [
     text: "Pay for electricity, gas, water, and internet quickly and securely.",
     btn: "View Bills",
     link: "/bills",
-    img: "https://images.unsplash.com/photo-1761839258671-6495fdc188b3?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170",
+    img: "https://i.ibb.co.com/HpKHw7bR/artem-beliaikin-Dz-Iij3-Crp-M-unsplash.jpg",
   },
   {
     title: "Track Your Monthly Expenses Easily",
     text: "Get detailed insights into your payments and billing history.",
     btn: "Go to Dashboard",
     link: "/bills",
-    img: "https://images.unsplash.com/photo-1664180921788-67c34b589ae0?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=987",
+    img: "https://i.ibb.co.com/D3mKYKQ/chanhee-lee-vkv-HBK8n-gs-unsplash.jpg",
   },
   {
     title: "Secure Online Payments",
     text: "Pay your bills safely with encryption and secure gateways.",
     btn: "Pay Now",
     link: "/bills",
-    img: "https://images.unsplash.com/photo-1581091870621-df32f6b3bb8a?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=1170",
+    img: "https://i.ibb.co.com/DP9qsyQY/rupixen-Q59-Hmz-K38e-Q-unsplash.jpg",
   },
   {
     title: "Stay Notified",
     text: "Get reminders for upcoming bills so you never miss a payment.",
     btn: "Set Alerts",
     link: "/bills",
-    img: "https://images.unsplash.com/photo-1573164574396-8f9a0e3b2f7d?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=1170",
+    img: "https://i.ibb.co.com/WNxptbvj/towfiqu-barbhuiya-j-Oeh3-Lv88x-A-unsplash.jpg",
   },
 ];
 
 const Banner = () => {
   return (
-    <div>
+    <div className="w-full">
       <Swiper
         slidesPerView={1}
-        spaceBetween={30}
         loop={true}
         pagination={{ clickable: true }}
         navigation={true}
-        autoplay={{ delay: 2500, disableOnInteraction: false }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         modules={[Pagination, Navigation, Autoplay]}
         className="mySwiper"
       >
@@ -62,17 +61,20 @@ const Banner = () => {
               className="relative h-[70vh] flex items-center justify-center bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.img})` }}
             >
-              {/* Overlay supporting dark mode */}
-              <div className="absolute inset-0 bg-black bg-opacity-40 dark:bg-black dark:bg-opacity-60"></div>
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-black/50 dark:bg-black/70"></div>
 
-              <div className="relative z-10 text-center text-white px-4">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              {/* Text content */}
+              <div className="relative z-10 text-center text-white px-6 max-w-3xl mx-auto">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
                   {slide.title}
                 </h2>
-                <p className="mb-6 text-lg md:text-xl">{slide.text}</p>
+                <p className="mb-8 text-lg md:text-xl opacity-90">
+                  {slide.text}
+                </p>
                 <Link
                   to={slide.link}
-                  className="btn btn-primary transition-transform duration-300 hover:scale-105"
+                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-transform transform hover:scale-105"
                 >
                   {slide.btn}
                 </Link>
