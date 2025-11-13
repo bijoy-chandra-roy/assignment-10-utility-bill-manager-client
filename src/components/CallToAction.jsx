@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const CallToAction = () => {
   return (
-    <section className="bg-primary text-white py-12 px-4 text-center rounded-lg my-12">
+    <section className="bg-primary text-white py-12 px-4 text-center my-12">
       <h3 className="text-3xl font-bold mb-4">
         Simplify Your Utility Payments Today
       </h3>

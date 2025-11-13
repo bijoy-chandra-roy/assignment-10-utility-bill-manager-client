@@ -15,7 +15,8 @@ const RecentBills = () => {
       <h3 className="text-2xl font-semibold mb-6">Recent Bills</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {bills.map(bill => (
-          <div key={bill._id} className="border rounded-lg p-4 flex flex-col gap-3 hover:shadow-md transition">
+          <div key={bill._id} className="border border-2
+ rounded-lg p-4 flex flex-col gap-3 hover:shadow-md transition">
             <img
               src={bill.image || "https://via.placeholder.com/150"}
               alt={bill.title}
@@ -28,7 +29,8 @@ const RecentBills = () => {
             <p className="text-sm font-semibold">Amount: ${bill.amount}</p>
             <Link
               to={`/bills/${bill._id}`}
-              className="inline-block mt-auto px-4 py-2 border rounded text-sm text-center"
+              className="inline-block mt-auto px-4 py-2 border border-2
+ rounded text-sm text-center"
             >
               See Details
             </Link>

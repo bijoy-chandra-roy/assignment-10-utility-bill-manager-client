@@ -20,7 +20,8 @@ const CategoryGrid = () => {
         {categories.map((category) => (
           <div
             key={category._id}
-            className="flex flex-col items-start gap-4 p-5 border rounded-lg hover:shadow-md transition"
+            className="flex flex-col items-start gap-4 p-5 border border-2
+ rounded-lg hover:shadow-md transition"
           >
             <img src={category.icon} alt={category.title} className="w-8 h-8" />
             <h4 className="text-lg font-medium">{category.title}</h4>

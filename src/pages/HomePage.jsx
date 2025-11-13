@@ -9,8 +9,11 @@ const HomePage = () => {
   return (
     <div>
       <Banner></Banner>
-      <CategoryGrid></CategoryGrid>
-      <RecentBills></RecentBills>
+      <div className="mx-40">
+        <CategoryGrid></CategoryGrid>
+        <RecentBills></RecentBills>
+      </div>
+
       {/* extra section A & B */}
       <CallToAction></CallToAction>
     </div>

@@ -5,7 +5,7 @@ import { FaSquareInstagram, FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-100 text-base-content w-full">
+    <footer className="text-base-content w-full">
       <div className="flex flex-col md:flex-row md:justify-between gap-8 md:gap-4 p-8 md:p-10">
         <aside className="flex flex-col items-start gap-4 flex-1">
           <img src={logo} alt="UtilityHub" className="w-[50px] h-auto" />
