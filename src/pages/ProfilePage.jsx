@@ -32,7 +32,7 @@ const ProfilePage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4">
-      <div className="w-full max-w-md bg-white p-6 rounded shadow">
+      <div className="w-full max-w-md border-2 p-6 rounded shadow">
         <h2 className="text-2xl font-bold mb-6 text-center">My Profile</h2>
         <form onSubmit={handleUpdate} className="flex flex-col gap-4">
           <div className="flex flex-col items-center">
@@ -67,7 +67,7 @@ const ProfilePage = () => {
             type="email"
             value={user?.email || ""}
             readOnly
-            className="p-2 border rounded bg-gray-100 cursor-not-allowed w-full"
+            className="p-2 border rounded cursor-not-allowed w-full"
           />
 
           <div>
@@ -91,7 +91,7 @@ const ProfilePage = () => {
                   if (!e.target.value) setError("");
                 }}
                 placeholder="Enter new password"
-                className="p-2 border rounded w-full pr-10"
+                className="p-2 border placeholder-blue-400 rounded w-full pr-10"
               />
               <button
                 type="button"
@@ -106,7 +106,7 @@ const ProfilePage = () => {
 
           <button
             type="submit"
-            className="p-3 bg-primary text-white font-semibold rounded hover:bg-gray-800 transition"
+            className="p-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-800 transition"
             disabled={error ? true : false}
           >
             Update Profile

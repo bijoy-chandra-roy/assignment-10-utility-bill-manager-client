@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import App from "../App";
 import BillDetailsPage from "../pages/BillDetailsPage";
-import Update from "../pages/Update";
 import HomePage from "../pages/HomePage";
 import BillsPage from "../pages/BillsPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -59,12 +58,6 @@ const router = createBrowserRouter([
           <BillDetailsPage></BillDetailsPage>
         </PrivateRoute>
         ),
-      },
-      {
-        path: "update/:id",
-        loader: ({ params }) =>
-          fetch(`http://localhost:3000/bills/${params.id}`),
-        Component: Update,
       },
     ],
   },

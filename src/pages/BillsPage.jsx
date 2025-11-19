@@ -2,22 +2,41 @@ import { useLoaderData } from "react-router";
 import { useState, useEffect } from "react";
 import BillsList from "../components/BillsList";
 import BillFilterBar from "../components/BillFilterBar";
-import DownloadReportButton from "../components/DownloadReportButton";
+import BillSearch from "../components/BillSearch";
 
 const BillsPage = () => {
   const initialBills = useLoaderData();
   const [bills, setBills] = useState(initialBills);
   const [categories, setCategories] = useState([]);
-  const [search, setSearch] = useState("");
 
-  // Fetch categories for the filter dropdown
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryQuery, setCategoryQuery] = useState("");
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/categories");
+        const data = await res.json();
+        setCategories(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   useEffect(() => {
     const fetchBills = async () => {
       try {
-        let url = `http://localhost:3000/bills?`;
-        if (search) url += `search=${search}&`;
+        const params = new URLSearchParams();
+        if (searchQuery) {
+          params.append('search', searchQuery);
+        }
+        if (categoryQuery) {
+          params.append('category', categoryQuery);
+        }
 
-        const res = await fetch(url);
+        const res = await fetch(`http://localhost:3000/bills?${params.toString()}`);
         const data = await res.json();
         setBills(data);
       } catch (err) {
@@ -25,9 +44,8 @@ const BillsPage = () => {
       }
     };
     fetchBills();
-  }, [search]);
+  }, [searchQuery, categoryQuery]);
 
-  // Delete a bill
   const handleDelete = async (id) => {
     try {
       const res = await fetch(`http://localhost:3000/bills/${id}`, {
@@ -42,35 +60,14 @@ const BillsPage = () => {
     }
   };
 
-  // Filter bills by category
-  const handleFilter = async (category) => {
-    try {
-      let url = `http://localhost:3000/bills?`;
-      if (category) url += `category=${category}`;
-
-      const res = await fetch(url);
-      const data = await res.json();
-      setBills(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   return (
-    <div>
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search bills by title..."
-          className="input input-bordered w-full max-w-xs"
-          onChange={(e) => setSearch(e.target.value)}
-        />
+    <div className="container mx-auto p-4 min-h-screen">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+        <BillSearch onSearch={setSearchQuery} />
+        <BillFilterBar categories={categories} onFilter={setCategoryQuery} />
       </div>
-      <BillFilterBar categories={categories} onFilter={handleFilter} />
+
       <BillsList bills={bills} onDelete={handleDelete} />
-      <div className="mt-6">
-        <DownloadReportButton bills={bills}></DownloadReportButton>
-      </div>
     </div>
   );
 };

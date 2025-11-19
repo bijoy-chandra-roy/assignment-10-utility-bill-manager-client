@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 
 const BillFilterBar = ({ categories, onFilter }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -6,16 +6,16 @@ const BillFilterBar = ({ categories, onFilter }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     setSelectedCategory(value);
-    onFilter(value); // Notify parent of filter change
+    onFilter(value);
   };
 
   return (
-    <div className="mb-6 flex flex-wrap items-center gap-4">
+    <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
       <label className="font-semibold">Filter by Category:</label>
       <select
         value={selectedCategory}
         onChange={handleChange}
-        className="p-2 border rounded"
+        className="select select-bordered bg-blue-600 text-white w-full md:w-auto"
       >
         <option value="">All Categories</option>
         {categories.map((category) => (

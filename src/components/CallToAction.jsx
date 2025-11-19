@@ -12,7 +12,7 @@ const CallToAction = () => {
       </p>
       <Link
         to="/bills"
-        className="inline-block px-6 py-3 bg-white text-blue-600 font-semibold rounded shadow hover:bg-gray-100 transition"
+        className="inline-block px-6 py-3 bg-white text-blue-600 font-semibold rounded shadow hover:bg-gray-100 transition transition-transform transform hover:scale-105"
       >
         Pay Your Bills Now
       </Link>

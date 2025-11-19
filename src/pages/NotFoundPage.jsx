@@ -9,7 +9,7 @@ const NotFoundPage = () => {
       <p className="mb-6">The page you are looking for does not exist or has been moved.</p>
       <Link
         to="/"
-        className="px-6 py-3 bg-primary text-white font-semibold rounded hover:bg-gray-800 transition"
+        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-800 transition"
       >
         Go Back Home
       </Link>

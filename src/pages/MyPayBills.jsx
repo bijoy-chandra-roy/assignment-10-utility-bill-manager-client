@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Loading from '../components/Loading';
 import Swal from 'sweetalert2';
-import DownloadReportButton from '../components/DownloadReportButton'; // We'll use this later
+import DownloadReportButton from '../components/DownloadReportButton';
 
 const MyPayBills = () => {
     const { user } = useContext(AuthContext);
@@ -11,7 +11,6 @@ const MyPayBills = () => {
     const [totalAmount, setTotalAmount] = useState(0);
     const [selectedBill, setSelectedBill] = useState(null);
 
-    // Function to fetch paid bills
     const fetchPaidBills = async () => {
         if (!user?.email) return;
         setLoading(true);
@@ -19,7 +18,6 @@ const MyPayBills = () => {
             const res = await fetch(`http://localhost:3000/my-bills/${user.email}`);
             const data = await res.json();
             setPaidBills(data);
-            // Calculate total
             const total = data.reduce((sum, bill) => sum + bill.amount, 0);
             setTotalAmount(total);
         } catch (error) {
@@ -30,12 +28,10 @@ const MyPayBills = () => {
         }
     };
 
-    // Fetch data on component mount
     useEffect(() => {
         fetchPaidBills();
-    }, [user]); // Re-fetch if user changes
+    }, [user]);
 
-    // Handle Submission
     const handleUpdateBill = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -57,7 +53,6 @@ const MyPayBills = () => {
                 fetchPaidBills();
                 document.getElementById('update_modal').close();
                 Swal.fire({
-                    position: "top-end",
                     icon: "success",
                     title: "Bill updated successfully",
                     showConfirmButton: false,
@@ -69,7 +64,6 @@ const MyPayBills = () => {
         }
     };
 
-    // Handle Delete
     const handleDelete = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -88,7 +82,6 @@ const MyPayBills = () => {
                     const data = await res.json();
                     if (data.deletedCount > 0) {
                         Swal.fire('Deleted!', 'Your bill history has been deleted.', 'success');
-                        // Refetch the data to update the UI
                         fetchPaidBills();
                     }
                 } catch (error) {
@@ -115,21 +108,22 @@ const MyPayBills = () => {
                 </div>
             </div>
 
-            {/* Download Report Button - Requirement */}
             <div className="mb-4">
                 <DownloadReportButton bills={paidBills} />
             </div>
 
             <div className="overflow-x-auto">
-                <table className="table w-full">
-                    <thead>
-                        <tr>
+                <table className="table w-full border-2">
+                    <thead className="bg-blue-500 border-1">
+                        <tr className='text-white'>
+                            <th>Username</th>
+                            <th>Email</th>
                             <th>Bill Title</th>
-                            <th>Amount</th>
                             <th>Category</th>
-                            <th>Paid On</th>
-                            <th>Phone</th>
+                            <th>Amount</th>
                             <th>Address</th>
+                            <th>Phone</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -137,12 +131,14 @@ const MyPayBills = () => {
                         {paidBills.length > 0 ? (
                             paidBills.map((bill) => (
                                 <tr key={bill._id}>
+                                    <td>{bill.username}</td>
+                                    <td>{bill.email}</td>
                                     <td>{bill.title}</td>
-                                    <td>৳{bill.amount}</td>
                                     <td>{bill.category}</td>
-                                    <td>{new Date(bill.date).toLocaleDateString('en-GB')}</td>
-                                    <td>{bill.phone}</td>
+                                    <td>৳{bill.amount}</td>
                                     <td>{bill.address}</td>
+                                    <td>{bill.phone}</td>
+                                    <td>{new Date(bill.date).toLocaleDateString('en-GB')}</td>
                                     <td className="flex gap-2">
                                         <button
                                             onClick={() => {
@@ -164,44 +160,63 @@ const MyPayBills = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="7" className="text-center">You have no paid bills.</td>
+                                <td colSpan="9" className="text-center">You have no paid bills.</td>
                             </tr>
                         )}
                     </tbody>
                 </table>
             </div>
 
-            {/* modal */}
             <dialog id="update_modal" className="modal">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Update Bill Info</h3>
+                <div className="modal-box bg-gray-600">
+                    <h3 className="font-bold text-lg text-white">Update Bill Info</h3>
                     <form onSubmit={handleUpdateBill} className="py-4 flex flex-col gap-3">
                         <label className="label">
-                            <span className="label-text">Address</span>
+                            <span className="label-text text-gray-200">Address</span>
                         </label>
-                        <input type="text" name="address" defaultValue={selectedBill?.address} className="input input-bordered w-full" />
-                        
+                        <input
+                            type="text"
+                            name="address"
+                            defaultValue={selectedBill?.address}
+                            className="input input-bordered w-full bg-gray-900 text-white"
+                        />
+
                         <label className="label">
-                            <span className="label-text">Phone</span>
+                            <span className="label-text text-gray-200">Phone</span>
                         </label>
-                        <input type="text" name="phone" defaultValue={selectedBill?.phone} className="input input-bordered w-full" />
+                        <input
+                            type="text"
+                            name="phone"
+                            defaultValue={selectedBill?.phone}
+                            className="input input-bordered w-full bg-gray-900 text-white"
+                        />
 
                         <div className="flex gap-2">
                             <div className="w-1/2">
                                 <label className="label">
-                                    <span className="label-text">Amount</span>
+                                    <span className="label-text text-gray-200">Amount</span>
                                 </label>
-                                <input type="number" name="amount" defaultValue={selectedBill?.amount} className="input input-bordered w-full" />
+                                <input
+                                    type="number"
+                                    name="amount"
+                                    defaultValue={selectedBill?.amount}
+                                    className="input input-bordered w-full bg-gray-900 text-white"
+                                />
                             </div>
                             <div className="w-1/2">
                                 <label className="label">
-                                    <span className="label-text">Date</span>
+                                    <span className="label-text text-gray-200">Date</span>
                                 </label>
-                                <input type="text" name="date" defaultValue={selectedBill?.date} className="input input-bordered w-full" />
+                                <input
+                                    type="text"
+                                    name="date"
+                                    defaultValue={selectedBill?.date}
+                                    className="input input-bordered w-full bg-gray-900 text-white"
+                                />
                             </div>
                         </div>
 
-                        <button className="btn btn-primary mt-4">Update Now</button>
+                        <button className="btn btn-warning mt-4 text-white">Update Now</button>
                     </form>
                 </div>
                 <form method="dialog" className="modal-backdrop">

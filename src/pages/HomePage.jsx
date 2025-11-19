@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 import Banner from "../components/Banner";
 import CategoryGrid from "./../components/CategoryGrid";
 import RecentBills from "../components/RecentBills";
 import CallToAction from "../components/CallToAction";
+import HowItWorks from "../components/HowItWorks";
+import Testimonials from "../components/Testimonial";
 
 const HomePage = () => {
+  useEffect(() => {
+    document.title = "UtilityHub - Home";
+  }, []);
   return (
     <div>
       <Banner></Banner>
@@ -13,9 +18,9 @@ const HomePage = () => {
         <CategoryGrid></CategoryGrid>
         <RecentBills></RecentBills>
       </div>
-
-      {/* extra section A & B */}
+      <HowItWorks></HowItWorks>
       <CallToAction></CallToAction>
+      <Testimonials></Testimonials>
     </div>
   );
 };

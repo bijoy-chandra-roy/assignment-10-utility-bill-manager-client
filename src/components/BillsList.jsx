@@ -1,55 +1,63 @@
 import { Link } from "react-router";
 
 const BillsList = ({ bills, onDelete }) => {
-  if (!bills.length) {
-    return <p>No bills available.</p>;
+  if (!bills || !bills.length) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-base-content/50">
+        <p className="text-xl font-medium">No bills found for this category.</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">Bills Showcase</h2>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {bills.map((bill) => (
-          <li
-            key={bill._id}
-            className="border rounded-lg p-4 flex flex-col gap-3 hover:shadow-md transition"
-          >
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {bills.map((bill) => (
+        <div
+          key={bill._id}
+          className="card border-2 hover:border-blue-600 hover:-translate-y-1 transition-all duration-300 group"
+        >
+          <figure className="px-4 pt-4 relative h-52">
             <img
               src={bill.image || "https://via.placeholder.com/150"}
               alt={bill.title}
-              className="w-full h-32 object-cover rounded"
+              className="rounded-xl w-full h-full object-cover"
             />
-            <h4 className="text-lg font-medium">{bill.title}</h4>
-            <p className="text-sm text-gray-600">Category: {bill.category}</p>
-            <p className="text-sm text-gray-600">Location: {bill.location || "N/A"}</p>
-            <p className="text-sm text-gray-600">
-              Date: {new Date(bill.date).toLocaleDateString('en-GB')}
-            </p>
-            <p className="text-sm font-semibold">Amount: ${bill.amount}</p>
+            <div className="absolute top-6 right-6 badge badge-neutral font-medium shadow-sm">
+              {bill.category}
+            </div>
+          </figure>
 
-            <div className="mt-auto flex gap-2">
+          <div className="card-body p-6">
+            <h4 className="card-title text-lg font-bold mb-1 truncate" title={bill.title}>
+              {bill.title}
+            </h4>
+            
+            <div className="space-y-2 text-sm mb-4">
+              <div className="flex justify-between border-b-2 pb-1">
+                <span>Location</span>
+                <span className="font-medium">{bill.location || "N/A"}</span>
+              </div>
+              <div className="flex justify-between border-b-2 pb-1">
+                <span>Date</span>
+                <span className="font-medium">{new Date(bill.date).toLocaleDateString('en-GB')}</span>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center pt-2">
+              <div>
+                <p className="text-xs font-bold opacity-50 uppercase">Amount</p>
+                <p className="text-2xl font-bold text-blue-600">৳{bill.amount}</p>
+              </div>
               <Link
                 to={`/bills/${bill._id}`}
-                className="px-3 py-2 border rounded text-sm text-center hover:bg-gray-100 transition"
+                className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white border-none"
               >
-                Details
+                See Details
               </Link>
-              <Link
-                to={`/update/${bill._id}`}
-                className="px-3 py-2 border rounded text-sm text-center hover:bg-gray-100 transition"
-              >
-                Update
-              </Link>
-              <button
-                onClick={() => onDelete(bill._id)}
-                className="px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-              >
-                Delete
-              </button>
             </div>
-          </li>
-        ))}
-      </ul>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
