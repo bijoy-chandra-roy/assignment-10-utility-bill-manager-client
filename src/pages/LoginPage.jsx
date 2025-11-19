@@ -46,49 +46,58 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="card bg-base-100 w-full max-w-sm shadow-2xl py-6 px-4">
-        <h2 className="text-2xl font-semibold text-center mb-4">Log in to your account</h2>
+    <div className="flex justify-center items-center min-h-screen bg-base-200">
+      <div className="card bg-base-100 dark:bg-base-300 w-full max-w-sm shadow-2xl">
         <form onSubmit={handleLogin} className="card-body">
-          <label className="label">Email</label>
-          <input type="email" name="email" placeholder="Email" className="input input-bordered w-full" required />
-
-          <label className="label mt-4">Password</label>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              className="input input-bordered w-full pr-10"
-              required
-              autoComplete="current-password"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((s) => !s)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-lg z-10 bg-transparent focus:outline-none"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
+          <h2 className="text-2xl font-semibold text-center mb-4">Log in to your account</h2>
+          
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Email</span>
+            </label>
+            <input type="email" name="email" placeholder="Email" className="input input-bordered w-full" required />
           </div>
 
-          <div className="mt-2">
+          <div className="form-control mt-4">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                className="input input-bordered w-full pr-10"
+                required
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-lg z-10 btn btn-sm btn-circle btn-ghost text-base-content/70"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-2 text-right">
             <a className="link link-hover text-sm" href="https://mail.google.com/" target="_blank" rel="noreferrer">
               Forgot password?
             </a>
           </div>
 
-          {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
+          {error && <p className="text-error text-xs mt-2">{error}</p>}
 
-          <button type="submit" className="btn btn-neutral mt-4 w-full">
+          <button type="submit" className="btn btn-primary mt-4 w-full">
             Log In
           </button>
 
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="btn bg-white text-black border-[#e5e5e5] mt-2 w-full flex items-center justify-center gap-2"
+            className="btn bg-base-100 mt-2 w-full flex items-center justify-center gap-2"
           >
             <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <g>
@@ -104,7 +113,7 @@ const LoginPage = () => {
 
           <p className="text-center text-sm font-semibold mt-5">
             Don't have an account?{" "}
-            <Link className="text-secondary hover:underline transition" to="/register">
+            <Link className="link link-primary hover:underline transition" to="/register">
               Register
             </Link>
             {" "}here
