@@ -31,7 +31,7 @@ const CategoryGrid = () => {
             <Link
               to={`/bills?category=${category.title}`}
               key={category._id}
-              className="card bg-base-100 dark:bg-base-300 shadow-sm hover:shadow-xl hover:-translate-y-1 border border-base-200 dark:border-base-content/10 hover:border-primary transition-all duration-300 group h-full"
+              className="card bg-base-100 dark:bg-base-300 shadow-sm hover:shadow-xl hover:-translate-y-1 border-2 border-base-200 dark:border-base-content/10 hover:border-primary transition-all duration-300 group h-full"
             >
               <div className="card-body items-center text-center p-8">
                 <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 transition-colors duration-300 group-hover:bg-primary shadow-inner">

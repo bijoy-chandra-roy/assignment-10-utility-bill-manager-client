@@ -75,7 +75,6 @@ const BillDetailsPage = () => {
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-base-content">Bill Details</h2>
 
-        {/* Main Card styled with DaisyUI theme classes instead of generic borders */}
         <div className="card bg-base-100 dark:bg-base-300 shadow-xl">
           <div className="card-body p-6 flex flex-col gap-6">
             <img
@@ -128,7 +127,6 @@ const BillDetailsPage = () => {
         </div>
       </div>
 
-      {/* Modal Structure - exact same layout, fixed colors */}
       <dialog id="pay_modal" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box bg-base-100 dark:bg-base-300 text-base-content">
           <h3 className="font-bold text-lg mb-4">Confirm Payment</h3>

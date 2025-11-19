@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router";
+import { useLoaderData, useSearchParams } from "react-router";
 import { useState, useEffect } from "react";
 import BillsList from "../components/BillsList";
 import BillFilterBar from "../components/BillFilterBar";
@@ -15,16 +15,17 @@ const BillsPage = () => {
   }, []);
 
   const initialBills = useLoaderData();
+  const [searchParams] = useSearchParams();
   const [bills, setBills] = useState(initialBills);
   const [categories, setCategories] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [categoryQuery, setCategoryQuery] = useState("");
+  const [categoryQuery, setCategoryQuery] = useState(searchParams.get("category") || "");
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch("http://localhost:3000/categories");
+        const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:3000"}/categories`);
         const data = await res.json();
         setCategories(data);
       } catch (err) {
@@ -45,7 +46,7 @@ const BillsPage = () => {
           params.append('category', categoryQuery);
         }
 
-        const res = await fetch(`http://localhost:3000/bills?${params.toString()}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:3000"}/bills?${params.toString()}`);
         const data = await res.json();
         setBills(data);
       } catch (err) {
@@ -59,7 +60,11 @@ const BillsPage = () => {
     <div className="container mx-auto p-4 min-h-screen">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
         <BillSearch onSearch={setSearchQuery} />
-        <BillFilterBar categories={categories} onFilter={setCategoryQuery} />
+        <BillFilterBar 
+          categories={categories} 
+          onFilter={setCategoryQuery} 
+          initialCategory={categoryQuery}
+        />
       </div>
 
       <BillsList bills={bills} />

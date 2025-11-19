@@ -20,7 +20,7 @@ const HomePage = () => {
   return (
     <div>
       <Banner></Banner>
-      <div className="mx-40">
+      <div className="md:mx-20 lg:mx-40 mx-4">
         <CategoryGrid></CategoryGrid>
         <RecentBills></RecentBills>
       </div>

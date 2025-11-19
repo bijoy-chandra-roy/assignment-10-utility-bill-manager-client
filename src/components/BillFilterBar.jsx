@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const BillFilterBar = ({ categories, onFilter }) => {
+const BillFilterBar = ({ categories, onFilter, initialCategory }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategory(initialCategory);
+    }
+  }, [initialCategory]);
 
   const handleChange = (e) => {
     const value = e.target.value;
