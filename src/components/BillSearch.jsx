@@ -16,7 +16,7 @@ const BillSearch = ({ onSearch }) => {
       <input
         type="text"
         placeholder="Search bills by title..."
-        className="input input-bordered w-full bg-blue-600 text-white placeholder:text-white/80 md:w-80"
+        className="input input-bordered input-primary w-full bg-base-100 text-base-content md:w-80"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

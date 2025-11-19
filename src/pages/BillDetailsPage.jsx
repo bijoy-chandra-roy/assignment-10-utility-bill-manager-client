@@ -61,7 +61,7 @@ const BillDetailsPage = () => {
 
   if (!bill || !bill._id) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 text-base-content px-4">
         <h2 className="text-2xl font-bold mb-4">Bill not found</h2>
         <Link to="/bills" className="btn btn-primary">
           Back to Bills
@@ -71,146 +71,153 @@ const BillDetailsPage = () => {
   }
 
   return (
-    <div className="p-4 md:p-8 max-w-4xl mx-auto min-h-screen">
-      <h2 className="text-3xl font-bold mb-6">Bill Details</h2>
+    <div className="min-h-screen bg-base-200 p-4 md:p-8">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold mb-6 text-base-content">Bill Details</h2>
 
-      <div className="border rounded-lg p-6 shadow-lg flex flex-col gap-6">
-        <img
-          src={bill.image || "https://via.placeholder.com/300"}
-          alt={bill.title}
-          className="w-full h-64 md:h-80 object-cover rounded-lg"
-        />
+        {/* Main Card styled with DaisyUI theme classes instead of generic borders */}
+        <div className="card bg-base-100 dark:bg-base-300 shadow-xl">
+          <div className="card-body p-6 flex flex-col gap-6">
+            <img
+              src={bill.image || "https://via.placeholder.com/300"}
+              alt={bill.title}
+              className="w-full h-64 md:h-80 object-cover rounded-lg"
+            />
 
-        <div className="space-y-2">
-          <h3 className="text-2xl font-bold">{bill.title}</h3>
-          <p className="text-lg">
-            <strong>Amount:</strong>{" "}
-            <span className="text-blue-600 font-semibold">${bill.amount}</span>
-          </p>
-          <p>
-            <strong>Category:</strong>{" "}
-            <span className="badge badge-outline">{bill.category}</span>
-          </p>
-          <p>
-            <strong>Description:</strong>{" "}
-            {bill.description || "No description provided."}
-          </p>
-          <p>
-            <strong>Location:</strong> {bill.location || "N/A"}
-          </p>
-          <p>
-            <strong>Bill Date:</strong>{" "}
-            {new Date(bill.date).toLocaleDateString("en-GB")}
-          </p>
-        </div>
+            <div className="space-y-2 text-base-content">
+              <h3 className="text-2xl font-bold">{bill.title}</h3>
+              <p className="text-lg">
+                <strong>Amount:</strong>{" "}
+                <span className="text-primary font-bold">${bill.amount}</span>
+              </p>
+              <p>
+                <strong>Category:</strong>{" "}
+                <span className="badge badge-neutral ml-1">{bill.category}</span>
+              </p>
+              <p>
+                <strong>Description:</strong>{" "}
+                {bill.description || "No description provided."}
+              </p>
+              <p>
+                <strong>Location:</strong> {bill.location || "N/A"}
+              </p>
+              <p>
+                <strong>Bill Date:</strong>{" "}
+                {new Date(bill.date).toLocaleDateString("en-GB")}
+              </p>
+            </div>
 
-        <div className="flex flex-wrap gap-4 pt-4 border-t border-base-300">
-          {isCurrentMonth ? (
-            <button
-              onClick={() => document.getElementById("pay_modal").showModal()}
-              className="btn btn-success text-white"
-            >
-              Pay Bill
-            </button>
-          ) : (
-            <button disabled className="btn btn-disabled bg-gray-600 text-white">
-              Pay Disabled (Wrong Month)
-            </button>
-          )}
-          <Link to="/bills" className="btn btn-ghost">
-            Back to Bills
-          </Link>
+            <div className="flex flex-wrap gap-4 pt-4 border-t border-base-200 dark:border-base-content/10">
+              {isCurrentMonth ? (
+                <button
+                  onClick={() => document.getElementById("pay_modal").showModal()}
+                  className="btn btn-success text-white"
+                >
+                  Pay Bill
+                </button>
+              ) : (
+                <button disabled className="btn btn-disabled">
+                  Pay Disabled (Wrong Month)
+                </button>
+              )}
+              <Link to="/bills" className="btn btn-ghost">
+                Back to Bills
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
-      <dialog id="pay_modal" className="modal">
-        <div className="modal-box bg-gray-600">
-          <h3 className="font-bold text-lg text-white mb-4">Confirm Payment</h3>
+      {/* Modal Structure - exact same layout, fixed colors */}
+      <dialog id="pay_modal" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box bg-base-100 dark:bg-base-300 text-base-content">
+          <h3 className="font-bold text-lg mb-4">Confirm Payment</h3>
 
           <form onSubmit={handlePayBill} className="flex flex-col gap-3">
+            
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text text-gray-200">Bill ID</span>
+                <span className="label-text font-medium">Bill ID</span>
               </div>
               <input
                 type="text"
                 value={bill._id}
                 readOnly
-                className="input input-bordered w-full bg-gray-700 text-gray-300"
+                className="input input-bordered w-full bg-base-200/60 cursor-not-allowed"
               />
             </label>
 
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text text-gray-200">Amount</span>
+                <span className="label-text font-medium">Amount</span>
               </div>
               <input
                 type="text"
                 value={`$${bill.amount}`}
                 readOnly
-                className="input input-bordered w-full bg-gray-700 text-gray-300"
+                className="input input-bordered w-full bg-base-200/60 cursor-not-allowed text-primary font-bold"
               />
             </label>
 
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text text-gray-200">User Email</span>
+                <span className="label-text font-medium">User Email</span>
               </div>
               <input
                 type="text"
                 value={user?.email}
                 readOnly
-                className="input input-bordered w-full bg-gray-700 text-gray-300"
+                className="input input-bordered w-full bg-base-200/60 cursor-not-allowed"
               />
             </label>
 
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text text-gray-200">Username</span>
+                <span className="label-text font-medium">Username</span>
               </div>
               <input
                 type="text"
                 value={user?.displayName || "N/A"}
                 readOnly
-                className="input input-bordered w-full bg-gray-700 text-gray-300"
+                className="input input-bordered w-full bg-base-200/60 cursor-not-allowed"
               />
             </label>
 
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text text-gray-200">Payment Date</span>
+                <span className="label-text font-medium">Payment Date</span>
               </div>
               <input
                 type="text"
                 value={new Date().toLocaleDateString("en-GB")}
                 readOnly
-                className="input input-bordered w-full bg-gray-700 text-gray-300"
+                className="input input-bordered w-full bg-base-200/60 cursor-not-allowed"
               />
             </label>
 
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text text-gray-200">Phone Number</span>
+                <span className="label-text font-medium">Phone Number</span>
               </div>
               <input
                 type="text"
                 name="phone"
                 placeholder="Your phone number..."
                 required
-                className="input input-bordered w-full bg-gray-900 text-white"
+                className="input input-bordered w-full"
               />
             </label>
 
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text text-gray-200">Address</span>
+                <span className="label-text font-medium">Address</span>
               </div>
               <input
                 type="text"
                 name="address"
                 placeholder="Your address..."
                 required
-                className="input input-bordered w-full bg-gray-900 text-white"
+                className="input input-bordered w-full"
               />
             </label>
 

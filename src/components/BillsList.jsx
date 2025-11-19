@@ -14,43 +14,39 @@ const BillsList = ({ bills, onDelete }) => {
       {bills.map((bill) => (
         <div
           key={bill._id}
-          className="card border-2 hover:border-blue-600 hover:-translate-y-1 transition-all duration-300 group"
+          className="card bg-base-100 dark:bg-base-300 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-2 border border-base-200 dark:border-base-content/10 hover:border-primary transition-all duration-300 cursor-pointer"
         >
-          <figure className="px-4 pt-4 relative h-52">
+          <figure>
             <img
               src={bill.image || "https://via.placeholder.com/150"}
               alt={bill.title}
-              className="rounded-xl w-full h-full object-cover"
+              className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
             />
-            <div className="absolute top-6 right-6 badge badge-neutral font-medium shadow-sm">
-              {bill.category}
-            </div>
           </figure>
-
-          <div className="card-body p-6">
-            <h4 className="card-title text-lg font-bold mb-1 truncate" title={bill.title}>
+          <div className="card-body">
+            <h2 className="card-title text-base-content">
               {bill.title}
-            </h4>
+              <div className="badge badge-neutral">{bill.category}</div>
+            </h2>
             
-            <div className="space-y-2 text-sm mb-4">
-              <div className="flex justify-between border-b-2 pb-1">
-                <span>Location</span>
-                <span className="font-medium">{bill.location || "N/A"}</span>
+            <div className="text-sm text-base-content/70 space-y-1 my-2">
+              <div className="flex justify-between">
+                <span>Location:</span>
+                <span className="font-medium text-base-content">{bill.location || "N/A"}</span>
               </div>
-              <div className="flex justify-between border-b-2 pb-1">
-                <span>Date</span>
-                <span className="font-medium">{new Date(bill.date).toLocaleDateString('en-GB')}</span>
+              <div className="flex justify-between">
+                <span>Date:</span>
+                <span className="font-medium text-base-content">{new Date(bill.date).toLocaleDateString('en-GB')}</span>
               </div>
             </div>
 
-            <div className="flex justify-between items-center pt-2">
-              <div>
-                <p className="text-xs font-bold opacity-50 uppercase">Amount</p>
-                <p className="text-2xl font-bold text-blue-600">৳{bill.amount}</p>
+            <div className="card-actions justify-between items-center mt-2">
+              <div className="text-2xl font-bold text-primary">
+                ৳{bill.amount}
               </div>
               <Link
                 to={`/bills/${bill._id}`}
-                className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white border-none"
+                className="btn btn-primary text-white btn-sm hover:scale-105"
               >
                 See Details
               </Link>

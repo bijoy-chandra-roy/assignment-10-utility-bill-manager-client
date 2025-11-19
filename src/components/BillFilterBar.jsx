@@ -11,11 +11,11 @@ const BillFilterBar = ({ categories, onFilter }) => {
 
   return (
     <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-      <label className="font-semibold">Filter by Category:</label>
+      <label className="font-semibold text-base-content">Filter by Category:</label>
       <select
         value={selectedCategory}
         onChange={handleChange}
-        className="select select-bordered bg-blue-600 text-white w-full md:w-auto"
+        className="select select-bordered select-primary w-full md:w-auto bg-base-100 text-base-content"
       >
         <option value="">All Categories</option>
         {categories.map((category) => (
