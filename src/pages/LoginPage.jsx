@@ -4,15 +4,20 @@ import { AuthContext } from "../context/AuthContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginPage = () => {
+  useEffect(() => {
+    const originalTitle = document.title;
+    document.title = "UtilityHub - Log in";
+
+    return () => {
+      document.title = originalTitle;
+    };
+  }, []);
+
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    document.title = "UtilityHub - Log in";
-  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -50,7 +55,7 @@ const LoginPage = () => {
       <div className="card bg-base-100 dark:bg-base-300 w-full max-w-sm shadow-2xl">
         <form onSubmit={handleLogin} className="card-body">
           <h2 className="text-2xl font-semibold text-center mb-4">Log in to your account</h2>
-          
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
@@ -101,7 +106,7 @@ const LoginPage = () => {
           >
             <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <g>
-                <path d="m0 0H512V512H0" fill="#fff"></path>
+                <path d="m0 0H512V512H0" fill="rgba(255, 255, 255, 0)"></path>
                 <path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>
                 <path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path>
                 <path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path>

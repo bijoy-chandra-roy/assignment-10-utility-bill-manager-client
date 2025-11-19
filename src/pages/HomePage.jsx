@@ -9,8 +9,14 @@ import Testimonials from "../components/Testimonial";
 
 const HomePage = () => {
   useEffect(() => {
+    const originalTitle = document.title;
     document.title = "UtilityHub - Home";
+
+    return () => {
+      document.title = originalTitle;
+    };
   }, []);
+  
   return (
     <div>
       <Banner></Banner>

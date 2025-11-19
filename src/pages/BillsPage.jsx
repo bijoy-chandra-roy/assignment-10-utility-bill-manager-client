@@ -5,6 +5,15 @@ import BillFilterBar from "../components/BillFilterBar";
 import BillSearch from "../components/BillSearch";
 
 const BillsPage = () => {
+  useEffect(() => {
+    const originalTitle = document.title;
+    document.title = "UtilityHub - Bills";
+
+    return () => {
+      document.title = originalTitle;
+    };
+  }, []);
+
   const initialBills = useLoaderData();
   const [bills, setBills] = useState(initialBills);
   const [categories, setCategories] = useState([]);

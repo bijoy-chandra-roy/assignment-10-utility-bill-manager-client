@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLoaderData, Link } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
 
 const BillDetailsPage = () => {
+  useEffect(() => {
+    const originalTitle = document.title;
+    document.title = "UtilityHub - Bill Details";
+
+    return () => {
+      document.title = originalTitle;
+    };
+  }, []);
+
   const bill = useLoaderData();
   const { user } = useContext(AuthContext);
 

@@ -40,7 +40,7 @@ const NavBar = () => {
   );
 
   return (
-    <div className="navbar sticky top-0 z-50 bg-base-100/80 backdrop-blur-md border-b border-base-200 px-4">
+    <div className="navbar sticky top-0 z-50 bg-base-100/40 backdrop-blur-md border-b border-base-200 px-4">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,8 +63,8 @@ const NavBar = () => {
           </ul>
         </div>
         
-        <Link to="/" className="btn btn-ghost text-xl flex items-center gap-2">
-          <img src={logo} alt="logo" className="w-8" />
+        <Link to="/" className="btn btn-ghost text-xl flex items-center gap-0">
+          <img src={logo} alt="logo" className="w-16" />
           <span className="max-[350px]:hidden font-bold text-primary">UtilityHub</span>
         </Link>
       </div>

@@ -5,6 +5,16 @@ import Swal from 'sweetalert2';
 import DownloadReportButton from '../components/DownloadReportButton';
 
 const MyPayBills = () => {
+
+    useEffect(() => {
+        const originalTitle = document.title;
+        document.title = "UtilityHub - My Pay Bills";
+
+        return () => {
+            document.title = originalTitle;
+        };
+    }, []);
+
     const { user } = useContext(AuthContext);
     const [paidBills, setPaidBills] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -70,7 +80,7 @@ const MyPayBills = () => {
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#2563eb',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then(async (result) => {
@@ -94,135 +104,146 @@ const MyPayBills = () => {
     if (loading) return <Loading />;
 
     return (
-        <div className="container mx-auto p-4 min-h-screen">
-            <h2 className="text-3xl font-bold mb-6">My Payment History</h2>
+        <div className="min-h-screen bg-base-200 p-4 md:p-8">
+            <div className="container mx-auto">
+                <h2 className="text-3xl font-bold mb-8 text-center text-base-content">My Payment History</h2>
 
-            <div className="stats shadow mb-6">
-                <div className="stat">
-                    <div className="stat-title">Total Bills Paid</div>
-                    <div className="stat-value">{paidBills.length}</div>
+                {/* Added dark:bg-base-300 and text-base-content */}
+                <div className="stats shadow w-full bg-base-100 dark:bg-base-300 text-base-content mb-8">
+                    <div className="stat place-items-center">
+                        <div className="stat-title text-base-content/70">Total Bills Paid</div>
+                        <div className="stat-value text-primary">{paidBills.length}</div>
+                    </div>
+                    <div className="stat place-items-center">
+                        <div className="stat-title text-base-content/70">Total Amount Paid</div>
+                        <div className="stat-value text-base-content">৳{totalAmount.toLocaleString()}</div>
+                    </div>
                 </div>
-                <div className="stat">
-                    <div className="stat-title">Total Amount Paid</div>
-                    <div className="stat-value">৳{totalAmount.toLocaleString()}</div>
-                </div>
-            </div>
 
-            <div className="mb-4">
-                <DownloadReportButton bills={paidBills} />
-            </div>
-
-            <div className="overflow-x-auto">
-                <table className="table w-full border-2">
-                    <thead className="bg-blue-500 border-1">
-                        <tr className='text-white'>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Bill Title</th>
-                            <th>Category</th>
-                            <th>Amount</th>
-                            <th>Address</th>
-                            <th>Phone</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {paidBills.length > 0 ? (
-                            paidBills.map((bill) => (
-                                <tr key={bill._id}>
-                                    <td>{bill.username}</td>
-                                    <td>{bill.email}</td>
-                                    <td>{bill.title}</td>
-                                    <td>{bill.category}</td>
-                                    <td>৳{bill.amount}</td>
-                                    <td>{bill.address}</td>
-                                    <td>{bill.phone}</td>
-                                    <td>{new Date(bill.date).toLocaleDateString('en-GB')}</td>
-                                    <td className="flex gap-2">
-                                        <button
-                                            onClick={() => {
-                                                setSelectedBill(bill);
-                                                document.getElementById('update_modal').showModal();
-                                            }}
-                                            className="btn btn-sm btn-outline btn-warning"
-                                        >
-                                            Update
-                                        </button>
-                                        <button
-                                            onClick={() => handleDelete(bill._id)}
-                                            className="btn btn-sm btn-outline btn-error"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
+                {/* Added dark:bg-base-300 */}
+                <div className="card bg-base-100 dark:bg-base-300 shadow-xl overflow-hidden">
+                    <div className="overflow-x-auto">
+                        <table className="table table-zebra w-full">
+                            <thead className="bg-primary text-primary-content">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Bill Title</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="9" className="text-center">You have no paid bills.</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                            </thead>
+                            <tbody className="text-base-content">
+                                {paidBills.length > 0 ? (
+                                    paidBills.map((bill) => (
+                                        <tr key={bill._id}>
+                                            <td>{bill.username}</td>
+                                            <td>{bill.email}</td>
+                                            <td>{bill.title}</td>
+                                            <td>{bill.category}</td>
+                                            <td>৳{bill.amount}</td>
+                                            <td>{bill.address}</td>
+                                            <td>{bill.phone}</td>
+                                            <td>{new Date(bill.date).toLocaleDateString('en-GB')}</td>
+                                            <td className="flex gap-2">
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedBill(bill);
+                                                        document.getElementById('update_modal').showModal();
+                                                    }}
+                                                    className="btn btn-sm btn-outline btn-warning"
+                                                >
+                                                    Update
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(bill._id)}
+                                                    className="btn btn-sm btn-outline btn-error"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="9" className="text-center py-8 text-base-content/60">You have no paid bills.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-            <dialog id="update_modal" className="modal">
-                <div className="modal-box bg-gray-600">
-                    <h3 className="font-bold text-lg text-white">Update Bill Info</h3>
-                    <form onSubmit={handleUpdateBill} className="py-4 flex flex-col gap-3">
-                        <label className="label">
-                            <span className="label-text text-gray-200">Address</span>
-                        </label>
-                        <input
-                            type="text"
-                            name="address"
-                            defaultValue={selectedBill?.address}
-                            className="input input-bordered w-full bg-gray-900 text-white"
-                        />
+                <div className="mt-10 flex justify-center">
+                    <DownloadReportButton bills={paidBills} />
+                </div>
 
-                        <label className="label">
-                            <span className="label-text text-gray-200">Phone</span>
-                        </label>
-                        <input
-                            type="text"
-                            name="phone"
-                            defaultValue={selectedBill?.phone}
-                            className="input input-bordered w-full bg-gray-900 text-white"
-                        />
-
-                        <div className="flex gap-2">
-                            <div className="w-1/2">
+                <dialog id="update_modal" className="modal">
+                    {/* Added dark:bg-base-300 */}
+                    <div className="modal-box bg-base-100 dark:bg-base-300 text-base-content">
+                        <h3 className="font-bold text-lg">Update Bill Info</h3>
+                        <form onSubmit={handleUpdateBill} className="py-4 flex flex-col gap-3">
+                            <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text text-gray-200">Amount</span>
-                                </label>
-                                <input
-                                    type="number"
-                                    name="amount"
-                                    defaultValue={selectedBill?.amount}
-                                    className="input input-bordered w-full bg-gray-900 text-white"
-                                />
-                            </div>
-                            <div className="w-1/2">
-                                <label className="label">
-                                    <span className="label-text text-gray-200">Date</span>
+                                    <span className="label-text text-base-content">Address</span>
                                 </label>
                                 <input
                                     type="text"
-                                    name="date"
-                                    defaultValue={selectedBill?.date}
-                                    className="input input-bordered w-full bg-gray-900 text-white"
+                                    name="address"
+                                    defaultValue={selectedBill?.address}
+                                    className="input input-bordered w-full bg-base-100 dark:bg-base-200 text-base-content"
                                 />
                             </div>
-                        </div>
 
-                        <button className="btn btn-warning mt-4 text-white">Update Now</button>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text text-base-content">Phone</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    defaultValue={selectedBill?.phone}
+                                    className="input input-bordered w-full bg-base-100 dark:bg-base-200 text-base-content"
+                                />
+                            </div>
+
+                            <div className="flex gap-4">
+                                <div className="form-control w-1/2">
+                                    <label className="label">
+                                        <span className="label-text text-base-content">Amount</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="amount"
+                                        defaultValue={selectedBill?.amount}
+                                        className="input input-bordered w-full bg-base-100 dark:bg-base-200 text-base-content"
+                                    />
+                                </div>
+                                <div className="form-control w-1/2">
+                                    <label className="label">
+                                        <span className="label-text text-base-content">Date</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="date"
+                                        defaultValue={selectedBill?.date}
+                                        className="input input-bordered w-full bg-base-100 dark:bg-base-200 text-base-content"
+                                    />
+                                </div>
+                            </div>
+
+                            <button className="btn btn-primary mt-6 w-full">Update Now</button>
+                        </form>
+                    </div>
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
                     </form>
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog>
+                </dialog>
+            </div>
         </div>
     );
 };

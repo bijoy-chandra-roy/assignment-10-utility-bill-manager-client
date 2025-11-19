@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 
 const NotFoundPage = () => {
+  useEffect(() => {
+    const originalTitle = document.title;
+    document.title = "UtilityHub - Page Not Found";
+
+    return () => {
+      document.title = originalTitle;
+    };
+  }, []);
   return (
     <div className="flex flex-col items-center justify-center h-screen text-center px-4">
       <h1 className="text-6xl font-bold mb-4">404</h1>

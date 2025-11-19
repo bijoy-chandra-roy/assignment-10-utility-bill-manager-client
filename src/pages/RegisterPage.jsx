@@ -39,81 +39,98 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="card bg-base-100 w-full max-w-sm shadow-2xl py-6 px-4">
-        <h2 className="text-2xl font-semibold text-center mb-4">Create an account</h2>
+    <div className="flex justify-center items-center min-h-screen bg-base-200">
+      <div className="card bg-base-100 dark:bg-base-300 w-full max-w-sm shadow-2xl">
         <form onSubmit={handleRegister} className="card-body">
-          <label className="label">Profile Picture</label>
-          <input
-            type="text"
-            name="photoURL"
-            placeholder="Profile image URL"
-            className="input input-bordered w-full"
-          />
+          <h2 className="text-2xl font-semibold text-center mb-4">Create an account</h2>
 
-          <label className="label">Full Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            className="input input-bordered w-full"
-            required
-          />
-
-          <label className="label mt-4">Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="input input-bordered w-full"
-            required
-          />
-
-          <label className="label mt-4">Password</label>
-          <div className="relative">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Profile Picture</span>
+            </label>
             <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              className="input input-bordered w-full pr-10"
-              required
-              value={password}
-              onChange={(e) => {
-                const val = e.target.value;
-                setPassword(val);
-
-                if (!/[A-Z]/.test(val))
-                  setError("Password must contain at least one uppercase letter");
-                else if (!/[a-z]/.test(val))
-                  setError("Password must contain at least one lowercase letter");
-                else if (val.length < 6)
-                  setError("Password must be at least 6 characters long");
-                else setError("");
-              }}
-              onBlur={(e) => {
-                if (!e.target.value) setError("");
-              }}
+              type="text"
+              name="photoURL"
+              placeholder="Profile image URL"
+              className="input input-bordered w-full"
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword((s) => !s)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-lg z-10 bg-transparent focus:outline-none"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
           </div>
 
-          {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
+          <div className="form-control mt-4">
+            <label className="label">
+              <span className="label-text">Full Name</span>
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
 
-          <button type="submit" className="btn btn-neutral mt-4 w-full" disabled={!!error}>
+          <div className="form-control mt-4">
+            <label className="label">
+              <span className="label-text">Email</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          <div className="form-control mt-4">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                className="input input-bordered w-full pr-10"
+                required
+                value={password}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setPassword(val);
+
+                  if (!/[A-Z]/.test(val))
+                    setError("Password must contain at least one uppercase letter");
+                  else if (!/[a-z]/.test(val))
+                    setError("Password must contain at least one lowercase letter");
+                  else if (val.length < 6)
+                    setError("Password must be at least 6 characters long");
+                  else setError("");
+                }}
+                onBlur={(e) => {
+                  if (!e.target.value) setError("");
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-lg z-10 btn btn-sm btn-circle btn-ghost text-base-content/70"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          {error && <p className="text-error text-xs mt-2">{error}</p>}
+
+          <button type="submit" className="btn btn-primary mt-4 w-full" disabled={!!error}>
             Register
           </button>
 
           <button
             type="button"
             onClick={handleGoogleSignUp}
-            className="btn bg-white text-black border-[#e5e5e5] mt-2 w-full flex items-center justify-center gap-2"
+            className="btn bg-base-100 mt-2 w-full flex items-center justify-center gap-2"
           >
             <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <g>
@@ -129,7 +146,7 @@ const RegisterPage = () => {
 
           <p className="text-center text-sm font-semibold mt-5">
             Already have an account?{" "}
-            <Link className="text-secondary hover:underline transition" to="/login">
+            <Link className="link link-primary hover:underline transition" to="/login">
               Log In
             </Link>
           </p>

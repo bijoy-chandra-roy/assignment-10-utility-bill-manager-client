@@ -9,12 +9,14 @@ import RegisterPage from './../pages/RegisterPage';
 import ProfilePage from "../pages/ProfilePage";
 import MyPayBills from "../pages/MyPayBills";
 import PrivateRoute from "../providers/PrivateRoute";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
-    errorElement: <NotFoundPage />,
+    errorElement: <div><NavBar></NavBar><NotFoundPage /><Footer></Footer></div>,
     children: [
       {
         index: true,
