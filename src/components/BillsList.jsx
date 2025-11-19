@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-const BillsList = ({ bills, onDelete }) => {
+const BillsList = ({ bills }) => {
   if (!bills || !bills.length) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-base-content/50">
@@ -28,7 +28,7 @@ const BillsList = ({ bills, onDelete }) => {
               {bill.title}
               <div className="badge badge-neutral">{bill.category}</div>
             </h2>
-            
+
             <div className="text-sm text-base-content/70 space-y-1 my-2">
               <div className="flex justify-between">
                 <span>Location:</span>

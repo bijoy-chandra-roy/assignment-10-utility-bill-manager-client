@@ -200,7 +200,7 @@ const BillDetailsPage = () => {
                 <span className="label-text font-medium">Phone Number</span>
               </div>
               <input
-                type="text"
+                type="tel"
                 name="phone"
                 placeholder="Your phone number..."
                 required

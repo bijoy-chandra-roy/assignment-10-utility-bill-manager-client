@@ -95,7 +95,7 @@ const MyPayBills = () => {
                         fetchPaidBills();
                     }
                 } catch (error) {
-                    Swal.fire('Error', 'Could not delete the bill.', 'error');
+                    Swal.fire('Error', 'Could not delete the bill.', error);
                 }
             }
         });
@@ -204,7 +204,7 @@ const MyPayBills = () => {
                                     <span className="label-text text-base-content">Phone</span>
                                 </label>
                                 <input
-                                    type="text"
+                                    type="tel"
                                     name="phone"
                                     defaultValue={selectedBill?.phone}
                                     className="input input-bordered w-full bg-base-100 dark:bg-base-200 text-base-content"

@@ -55,20 +55,6 @@ const BillsPage = () => {
     fetchBills();
   }, [searchQuery, categoryQuery]);
 
-  const handleDelete = async (id) => {
-    try {
-      const res = await fetch(`http://localhost:3000/bills/${id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-      if (data.deletedCount) {
-        setBills((prev) => prev.filter((bill) => bill._id !== id));
-      }
-    } catch (err) {
-      console.error("Failed to delete bill:", err);
-    }
-  };
-
   return (
     <div className="container mx-auto p-4 min-h-screen">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
@@ -76,7 +62,7 @@ const BillsPage = () => {
         <BillFilterBar categories={categories} onFilter={setCategoryQuery} />
       </div>
 
-      <BillsList bills={bills} onDelete={handleDelete} />
+      <BillsList bills={bills} />
     </div>
   );
 };
