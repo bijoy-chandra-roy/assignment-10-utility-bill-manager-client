@@ -4,7 +4,7 @@ const BillsList = ({ bills }) => {
   if (!bills || !bills.length) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-base-content/50">
-        <p className="text-xl font-medium">No bills found for this category.</p>
+        <p className="text-xl font-medium">No bills found.</p>
       </div>
     );
   }

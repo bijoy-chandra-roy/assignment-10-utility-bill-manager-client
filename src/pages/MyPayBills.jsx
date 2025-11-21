@@ -3,9 +3,9 @@ import { AuthContext } from '../context/AuthContext';
 import Loading from '../components/Loading';
 import Swal from 'sweetalert2';
 import DownloadReportButton from '../components/DownloadReportButton';
+import { Tooltip } from 'react-tooltip';
 
 const MyPayBills = () => {
-
     useEffect(() => {
         const originalTitle = document.title;
         document.title = "UtilityHub - My Pay Bills";
@@ -108,7 +108,6 @@ const MyPayBills = () => {
             <div className="container mx-auto">
                 <h2 className="text-3xl font-bold mb-8 text-center text-base-content">My Payment History</h2>
 
-                {/* Added dark:bg-base-300 and text-base-content */}
                 <div className="stats shadow w-full bg-base-100 dark:bg-base-300 text-base-content mb-8">
                     <div className="stat place-items-center">
                         <div className="stat-title text-base-content/70">Total Bills Paid</div>
@@ -120,7 +119,6 @@ const MyPayBills = () => {
                     </div>
                 </div>
 
-                {/* Added dark:bg-base-300 */}
                 <div className="card bg-base-100 dark:bg-base-300 shadow-xl overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="table table-zebra w-full">
@@ -156,12 +154,16 @@ const MyPayBills = () => {
                                                         document.getElementById('update_modal').showModal();
                                                     }}
                                                     className="btn btn-sm btn-outline btn-warning"
+                                                    data-tooltip-id="my-tooltip-1"
+                                                    data-tooltip-content="Change your paid bill details"
                                                 >
                                                     Update
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(bill._id)}
                                                     className="btn btn-sm btn-outline btn-error"
+                                                    data-tooltip-id="my-tooltip-1"
+                                                    data-tooltip-content="This will delete your bill from your paid bills history"
                                                 >
                                                     Delete
                                                 </button>
@@ -183,10 +185,9 @@ const MyPayBills = () => {
                 </div>
 
                 <dialog id="update_modal" className="modal">
-                    {/* Added dark:bg-base-300 */}
                     <div className="modal-box bg-base-100 dark:bg-base-300 text-base-content">
                         <h3 className="font-bold text-lg">Update Bill Info</h3>
-                        <form onSubmit={handleUpdateBill} className="py-4 flex flex-col gap-3">
+                        <form key={selectedBill?._id} onSubmit={handleUpdateBill} className="py-4 flex flex-col gap-3">
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text text-base-content">Address</span>
@@ -243,6 +244,7 @@ const MyPayBills = () => {
                         <button>close</button>
                     </form>
                 </dialog>
+                <Tooltip id="my-tooltip-1"></Tooltip>
             </div>
         </div>
     );

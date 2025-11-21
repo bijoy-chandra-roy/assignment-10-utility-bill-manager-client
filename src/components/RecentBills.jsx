@@ -10,18 +10,26 @@ const RecentBills = () => {
       .then((data) => setBills(data));
   }, []);
 
+  if (!bills || !bills.length) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-base-content/50">
+        <p className="text-xl font-medium">No bills found.</p>
+      </div>
+    );
+  }
+
   return (
     <section className="py-16 px-4 bg-base-200 border-t border-base-300">
       <div className="container mx-auto">
-        
+
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-base-content/10 pb-6">
           <div>
             <h2 className="text-3xl font-bold mb-2 text-base-content">Recent Bills</h2>
             <p className="text-base-content/70">Track your latest utility payments.</p>
           </div>
-          <Link 
-            to="/bills" 
+          <Link
+            to="/bills"
             className="btn btn-primary text-white mt-4 md:mt-0 hover:scale-105 transition-transform"
           >
             View All Bills
