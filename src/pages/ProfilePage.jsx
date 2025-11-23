@@ -5,13 +5,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const ProfilePage = () => {
   useEffect(() => {
-  const originalTitle = document.title;
-  document.title = "UtilityHub - Profile";
+    const originalTitle = document.title;
+    document.title = "UtilityHub - Profile";
 
-  return () => {
-    document.title = originalTitle;
-  };
-}, []);
+    return () => {
+      document.title = originalTitle;
+    };
+  }, []);
 
   const { user, updateUser } = useContext(AuthContext);
   const [displayName, setDisplayName] = useState(user?.displayName || "");
@@ -45,7 +45,6 @@ const ProfilePage = () => {
         <form onSubmit={handleUpdate} className="card-body">
           <h2 className="text-2xl font-semibold text-center mb-4">My Profile</h2>
 
-          {/* Avatar Section */}
           <div className="flex flex-col items-center mb-4">
             <div className="avatar mb-4">
               <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -59,7 +58,7 @@ const ProfilePage = () => {
                 />
               </div>
             </div>
-            
+
             <div className="form-control w-full">
               <label className="label">
                 <span className="label-text">Profile Picture URL</span>
@@ -74,7 +73,6 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          {/* Name Input */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Full Name</span>
@@ -88,7 +86,6 @@ const ProfilePage = () => {
             />
           </div>
 
-          {/* Email Input (Read Only) */}
           <div className="form-control mt-4">
             <label className="label">
               <span className="label-text">Email</span>
@@ -101,7 +98,6 @@ const ProfilePage = () => {
             />
           </div>
 
-          {/* Password Input */}
           <div className="form-control mt-4">
             <label className="label">
               <span className="label-text">New Password</span>
@@ -139,7 +135,6 @@ const ProfilePage = () => {
             {error && <p className="text-error text-xs mt-2">{error}</p>}
           </div>
 
-          {/* Submit Button */}
           <div className="form-control mt-6">
             <button
               type="submit"
