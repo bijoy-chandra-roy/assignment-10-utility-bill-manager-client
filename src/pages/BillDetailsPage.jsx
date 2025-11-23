@@ -41,7 +41,7 @@ const BillDetailsPage = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/my-bills`,
+        `${  "https://assignment-10-utility-bill-manager.vercel.app"}/my-bills`,
         {
           method: "POST",
           headers: { "content-type": "application/json" },

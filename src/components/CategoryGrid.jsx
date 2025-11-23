@@ -5,7 +5,7 @@ const CategoryGrid = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL || "http://localhost:3000"}/categories`)
+    fetch(`${  "https://assignment-10-utility-bill-manager.vercel.app"}/categories`)
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);
