@@ -5,7 +5,7 @@ const CategoryGrid = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch(`${  "https://assignment-10-utility-bill-manager.vercel.app"}/categories`)
+    fetch(`${"https://assignment-10-utility-bill-manager.vercel.app"}/categories`)
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);
@@ -18,14 +18,14 @@ const CategoryGrid = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-3">Pay Your Utilities</h2>
             <p className="text-lg opacity-70">Select a service category to view or pay your pending bills instantly.</p>
           </div>
-          <Link 
-            to="/bills" 
+          <Link
+            to="/bills"
             className="btn btn-primary text-white mt-4 md:mt-0 hover:scale-105 transition-transform"
           >
             View All Services
           </Link>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((category) => (
             <Link
@@ -35,10 +35,10 @@ const CategoryGrid = () => {
             >
               <div className="card-body items-center text-center p-8">
                 <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 transition-colors duration-300 group-hover:bg-primary shadow-inner">
-                  <img 
-                      src={category.icon} 
-                      alt={category.title} 
-                      className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300 group-hover:text-white" // Added group-hover:text-white
+                  <img
+                    src={category.icon}
+                    alt={category.title}
+                    className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300 group-hover:text-white"
                   />
                 </div>
                 <h3 className="card-title text-xl font-bold mb-2 group-hover:text-primary transition-colors">{category.title}</h3>

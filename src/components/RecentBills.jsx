@@ -22,7 +22,6 @@ const RecentBills = () => {
     <section className="py-16 px-4 bg-base-200 border-t border-base-300">
       <div className="container mx-auto">
 
-        {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-base-content/10 pb-6">
           <div>
             <h2 className="text-3xl font-bold mb-2 text-base-content">Recent Bills</h2>
@@ -36,7 +35,6 @@ const RecentBills = () => {
           </Link>
         </div>
 
-        {/* Grid Section - Exact style from BillsList */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {bills.map((bill) => (
             <div

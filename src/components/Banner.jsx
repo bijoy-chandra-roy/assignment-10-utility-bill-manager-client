@@ -61,10 +61,8 @@ const Banner = () => {
               className="relative h-[70vh] flex items-center justify-center bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.img})` }}
             >
-              {/* Dark overlay */}
               <div className="absolute inset-0 bg-black/50 dark:bg-black/70"></div>
 
-              {/* Text content */}
               <div className="relative z-10 text-center text-white px-6 max-w-3xl mx-auto">
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
                   {slide.title}
