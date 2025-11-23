@@ -11,6 +11,7 @@ import MyPayBills from "../pages/MyPayBills";
 import PrivateRoute from "../providers/PrivateRoute";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import AboutPage from "../pages/AboutPage";
 
 const router = createBrowserRouter([
   {
@@ -33,9 +34,9 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: (
-        <PrivateRoute>
-          <ProfilePage></ProfilePage>
-        </PrivateRoute>
+          <PrivateRoute>
+            <ProfilePage></ProfilePage>
+          </PrivateRoute>
         ),
       },
       {
@@ -46,9 +47,9 @@ const router = createBrowserRouter([
       {
         path: "my-pay-bills",
         element: (
-        <PrivateRoute>
-          <MyPayBills></MyPayBills>
-        </PrivateRoute>
+          <PrivateRoute>
+            <MyPayBills></MyPayBills>
+          </PrivateRoute>
         ),
       },
       {
@@ -56,10 +57,14 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`https://assignment-10-utility-bill-manager.vercel.app/bills/${params.id}`),
         element: (
-        <PrivateRoute>
-          <BillDetailsPage></BillDetailsPage>
-        </PrivateRoute>
+          <PrivateRoute>
+            <BillDetailsPage></BillDetailsPage>
+          </PrivateRoute>
         ),
+      },
+      {
+        path: "about",
+        Component: AboutPage,
       },
     ],
   },
