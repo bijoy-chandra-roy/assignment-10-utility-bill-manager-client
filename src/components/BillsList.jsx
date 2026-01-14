@@ -1,6 +1,17 @@
 import { Link } from "react-router";
+import BillSkeleton from "./BillSkeleton";
 
-const BillsList = ({ bills }) => {
+const BillsList = ({ bills, loading }) => {
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[...Array(8)].map((_, index) => (
+          <BillSkeleton key={index} />
+        ))}
+      </div>
+    );
+  }
+
   if (!bills || !bills.length) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-base-content/50">
@@ -10,11 +21,11 @@ const BillsList = ({ bills }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {bills.map((bill) => (
         <div
           key={bill._id}
-          className="card bg-base-100 dark:bg-base-300 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-2 border border-base-200 dark:border-base-content/10 hover:border-primary transition-all duration-300 cursor-pointer"
+          className="card bg-base-100 dark:bg-base-300 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-2 border border-base-200 dark:border-base-content/10 hover:border-primary transition-all duration-300 cursor-pointer h-full"
         >
           <figure>
             <img
@@ -29,7 +40,7 @@ const BillsList = ({ bills }) => {
               <div className="badge badge-neutral">{bill.category}</div>
             </h2>
 
-            <div className="text-sm text-base-content/70 space-y-1 my-2">
+            <div className="text-sm text-base-content/70 space-y-1 my-2 flex-grow">
               <div className="flex justify-between">
                 <span>Location:</span>
                 <span className="font-medium text-base-content">{bill.location || "N/A"}</span>

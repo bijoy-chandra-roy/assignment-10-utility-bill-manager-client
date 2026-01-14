@@ -18,6 +18,8 @@ const BillsPage = () => {
   const [searchParams] = useSearchParams();
   const [bills, setBills] = useState(initialBills);
   const [categories, setCategories] = useState([]);
+  
+  const [loading, setLoading] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryQuery, setCategoryQuery] = useState(searchParams.get("category") || "");
@@ -25,7 +27,7 @@ const BillsPage = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch(`${  "http://localhost:3000"}/categories`);
+        const res = await fetch("https://assignment-10-utility-bill-manager.vercel.app/categories");
         const data = await res.json();
         setCategories(data);
       } catch (err) {
@@ -37,6 +39,7 @@ const BillsPage = () => {
 
   useEffect(() => {
     const fetchBills = async () => {
+      setLoading(true);
       try {
         const params = new URLSearchParams();
         if (searchQuery) {
@@ -46,11 +49,13 @@ const BillsPage = () => {
           params.append('category', categoryQuery);
         }
 
-        const res = await fetch(`${  "http://localhost:3000"}/bills?${params.toString()}`);
+        const res = await fetch(`https://assignment-10-utility-bill-manager.vercel.app/bills?${params.toString()}`);
         const data = await res.json();
         setBills(data);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchBills();
@@ -67,7 +72,7 @@ const BillsPage = () => {
         />
       </div>
 
-      <BillsList bills={bills} />
+      <BillsList bills={bills} loading={loading} />
     </div>
   );
 };
