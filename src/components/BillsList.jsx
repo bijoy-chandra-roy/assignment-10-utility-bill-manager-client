@@ -18,7 +18,7 @@ const BillsList = ({ bills }) => {
         >
           <figure>
             <img
-              src={bill.image || "https://via.placeholder.com/150"}
+              src={bill.image}
               alt={bill.title}
               className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
             />

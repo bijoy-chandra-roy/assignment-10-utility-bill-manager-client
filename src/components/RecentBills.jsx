@@ -5,7 +5,7 @@ const RecentBills = () => {
   const [bills, setBills] = useState([]);
 
   useEffect(() => {
-    fetch(`${  "https://assignment-10-utility-bill-manager.vercel.app"}/bills?limit=6`)
+    fetch(`${  "http://localhost:3000"}/bills?limit=6`)
       .then((res) => res.json())
       .then((data) => setBills(data));
   }, []);
@@ -43,7 +43,7 @@ const RecentBills = () => {
             >
               <figure>
                 <img
-                  src={bill.image || "https://via.placeholder.com/150"}
+                  src={bill.image}
                   alt={bill.title}
                   className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
                 />

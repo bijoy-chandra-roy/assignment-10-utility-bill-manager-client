@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "bills",
-        loader: () => fetch("https://assignment-10-utility-bill-manager.vercel.app/bills"),
+        loader: () => fetch("http://localhost:3000/bills"),
         Component: BillsPage,
       },
       {
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
       {
         path: "bills/:id",
         loader: ({ params }) =>
-          fetch(`https://assignment-10-utility-bill-manager.vercel.app/bills/${params.id}`),
+          fetch(`http://localhost:3000/bills/${params.id}`),
         element: (
           <PrivateRoute>
             <BillDetailsPage></BillDetailsPage>

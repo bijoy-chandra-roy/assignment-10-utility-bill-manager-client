@@ -25,7 +25,7 @@ const MyPayBills = () => {
         if (!user?.email) return;
         setLoading(true);
         try {
-            const res = await fetch(`https://assignment-10-utility-bill-manager.vercel.app/my-bills/${user.email}`);
+            const res = await fetch(`http://localhost:3000/my-bills/${user.email}`);
             const data = await res.json();
             setPaidBills(data);
             const total = data.reduce((sum, bill) => sum + bill.amount, 0);
@@ -53,7 +53,7 @@ const MyPayBills = () => {
         const updatedInfo = { address, phone, amount: parseFloat(amount), date };
 
         try {
-            const res = await fetch(`https://assignment-10-utility-bill-manager.vercel.app/my-bills/${selectedBill._id}`, {
+            const res = await fetch(`http://localhost:3000/my-bills/${selectedBill._id}`, {
                 method: 'PATCH',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(updatedInfo)
@@ -86,7 +86,7 @@ const MyPayBills = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await fetch(`https://assignment-10-utility-bill-manager.vercel.app/my-bills/${id}`, {
+                    const res = await fetch(`http://localhost:3000/my-bills/${id}`, {
                         method: 'DELETE'
                     });
                     const data = await res.json();

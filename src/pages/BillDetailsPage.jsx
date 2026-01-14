@@ -41,7 +41,7 @@ const BillDetailsPage = () => {
 
     try {
       const res = await fetch(
-        `${  "https://assignment-10-utility-bill-manager.vercel.app"}/my-bills`,
+        `${  "http://localhost:3000"}/my-bills`,
         {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -78,7 +78,7 @@ const BillDetailsPage = () => {
         <div className="card bg-base-100 dark:bg-base-300 shadow-xl">
           <div className="card-body p-6 flex flex-col gap-6">
             <img
-              src={bill.image || "https://via.placeholder.com/300"}
+              src={bill.image}
               alt={bill.title}
               className="w-full h-64 md:h-80 object-cover rounded-lg"
             />
