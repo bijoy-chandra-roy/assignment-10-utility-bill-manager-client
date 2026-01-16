@@ -30,12 +30,24 @@ const NavBar = () => {
         </NavLink>
       </li>
       {user && (
-        <li>
-          <NavLink to="/my-pay-bills" className={({ isActive }) => (isActive ? "font-bold text-primary bg-primary/10 rounded-lg" : "font-medium hover:text-primary transition-colors rounded-lg")}>
-            My Pay Bills
-          </NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink to="/my-pay-bills" className={({ isActive }) => (isActive ? "font-bold text-primary bg-primary/10 rounded-lg" : "font-medium hover:text-primary transition-colors rounded-lg")}>
+              My Pay Bills
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "font-bold text-primary bg-primary/10 rounded-lg" : "font-medium hover:text-primary transition-colors rounded-lg")}>
+              Dashboard
+            </NavLink>
+          </li>
+        </>
       )}
+      <li>
+        <NavLink to="/about" className={({ isActive }) => (isActive ? "font-bold text-primary bg-primary/10 rounded-lg" : "font-medium hover:text-primary transition-colors rounded-lg")}>
+          About
+        </NavLink>
+      </li>
     </>
   );
 
