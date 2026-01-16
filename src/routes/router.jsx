@@ -57,9 +57,7 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:3000/bills/${params.id}`),
         element: (
-          <PrivateRoute>
             <BillDetailsPage></BillDetailsPage>
-          </PrivateRoute>
         ),
       },
       {

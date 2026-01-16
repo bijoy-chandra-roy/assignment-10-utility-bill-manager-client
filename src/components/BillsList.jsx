@@ -29,7 +29,7 @@ const BillsList = ({ bills, loading }) => {
         >
           <figure className="h-48 overflow-hidden">
             <img
-              src={bill.image}
+              src={bill.images || bill.image}
               alt={bill.title}
               className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
             />
@@ -40,7 +40,6 @@ const BillsList = ({ bills, loading }) => {
               <div className="badge badge-neutral text-xs">{bill.category}</div>
             </h2>
 
-            {/* Added Short Description */}
             <p className="text-xs text-base-content/70 line-clamp-2 my-3">
               {bill.description || "No detailed description available for this bill."}
             </p>

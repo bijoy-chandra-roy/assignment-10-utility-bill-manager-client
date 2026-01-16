@@ -1,21 +1,46 @@
-import React, { useEffect } from "react";
-import { useLoaderData, Link } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useLoaderData, Link, useNavigate, useLocation } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
 
 const BillDetailsPage = () => {
+  const bill = useLoaderData();
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeImage, setActiveImage] = useState(bill.images && bill.images.length > 0 ? bill.images[0] : bill.image);
+  const [relatedBills, setRelatedBills] = useState([]);
+
   useEffect(() => {
     const originalTitle = document.title;
     document.title = "UtilityHub - Bill Details";
 
+    if (bill.images && bill.images.length > 0) {
+      setActiveImage(bill.images[0]);
+    } else {
+      setActiveImage(bill.image);
+    }
+
+    const fetchRelated = async () => {
+        try {
+            const res = await fetch(`http://localhost:3000/bills?category=${bill.category}`);
+            const data = await res.json();
+            const filtered = data.filter(b => b._id !== bill._id).slice(0, 3);
+            setRelatedBills(filtered);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    if (bill.category) {
+        fetchRelated();
+    }
+
     return () => {
       document.title = originalTitle;
     };
-  }, []);
-
-  const bill = useLoaderData();
-  const { user } = useContext(AuthContext);
+  }, [bill]);
 
   const billDate = new Date(bill.date);
   const today = new Date();
@@ -25,6 +50,22 @@ const BillDetailsPage = () => {
 
   const handlePayBill = async (e) => {
     e.preventDefault();
+    
+    if (!user) {
+        Swal.fire({
+            title: "Please Login",
+            text: "You need to be logged in to pay bills.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Login",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navigate("/login", { state: { from: location } });
+            }
+        });
+        return;
+    }
+
     const form = e.target;
 
     const paymentData = {
@@ -41,7 +82,7 @@ const BillDetailsPage = () => {
 
     try {
       const res = await fetch(
-        `${  "http://localhost:3000"}/my-bills`,
+        `http://localhost:3000/my-bills`,
         {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -72,59 +113,135 @@ const BillDetailsPage = () => {
 
   return (
     <div className="min-h-screen bg-base-200 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-base-content">Bill Details</h2>
-
-        <div className="card bg-base-100 dark:bg-base-300 shadow-xl">
-          <div className="card-body p-6 flex flex-col gap-6">
-            <img
-              src={bill.image}
-              alt={bill.title}
-              className="w-full h-64 md:h-80 object-cover rounded-lg"
-            />
-
-            <div className="space-y-2 text-base-content">
-              <h3 className="text-2xl font-bold">{bill.title}</h3>
-              <p className="text-lg">
-                <strong>Amount:</strong>{" "}
-                <span className="text-primary font-bold">${bill.amount}</span>
-              </p>
-              <p>
-                <strong>Category:</strong>{" "}
-                <span className="badge badge-neutral ml-1">{bill.category}</span>
-              </p>
-              <p>
-                <strong>Description:</strong>{" "}
-                {bill.description || "No description provided."}
-              </p>
-              <p>
-                <strong>Location:</strong> {bill.location || "N/A"}
-              </p>
-              <p>
-                <strong>Bill Date:</strong>{" "}
-                {new Date(bill.date).toLocaleDateString("en-GB")}
-              </p>
+      <div className="max-w-6xl mx-auto">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div>
+                <div className="rounded-xl overflow-hidden h-96 border border-base-300 shadow-sm mb-4">
+                    <img 
+                        src={activeImage} 
+                        alt={bill.title} 
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+                {bill.images && bill.images.length > 0 && (
+                    <div className="flex gap-2 overflow-x-auto">
+                        {bill.images.map((img, idx) => (
+                            <img 
+                                key={idx}
+                                src={img}
+                                alt={`thumb-${idx}`}
+                                className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 ${activeImage === img ? 'border-primary' : 'border-transparent'}`}
+                                onClick={() => setActiveImage(img)}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
 
-            <div className="flex flex-wrap gap-4 pt-4 border-t border-base-200 dark:border-base-content/10">
-              {isCurrentMonth ? (
-                <button
-                  onClick={() => document.getElementById("pay_modal").showModal()}
-                  className="btn btn-success text-white"
-                >
-                  Pay Bill
-                </button>
-              ) : (
-                <button disabled className="btn btn-disabled">
-                  Pay Disabled (Wrong Month)
-                </button>
-              )}
-              <Link to="/bills" className="btn btn-ghost">
-                Back to Bills
-              </Link>
+            <div className="space-y-6">
+                <div>
+                    <span className="badge badge-primary">{bill.category}</span>
+                    <h1 className="text-4xl font-bold mt-2 text-base-content">{bill.title}</h1>
+                    <p className="text-3xl font-bold text-primary mt-4">৳{bill.amount}</p>
+                </div>
+
+                <div className="overflow-x-auto">
+                    <table className="table border border-base-300 bg-base-100 rounded-lg">
+                        <tbody>
+                            <tr>
+                                <th className="bg-base-200 w-1/3">Bill ID</th>
+                                <td>{bill._id}</td>
+                            </tr>
+                            <tr>
+                                <th className="bg-base-200">Location</th>
+                                <td>{bill.location || "N/A"}</td>
+                            </tr>
+                            <tr>
+                                <th className="bg-base-200">Due Date</th>
+                                <td>{new Date(bill.date).toLocaleDateString("en-GB")}</td>
+                            </tr>
+                            <tr>
+                                <th className="bg-base-200">Status</th>
+                                <td>
+                                    {isCurrentMonth ? (
+                                        <span className="text-success font-bold">Active</span>
+                                    ) : (
+                                        <span className="text-error font-bold">Expired</span>
+                                    )}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    {isCurrentMonth ? (
+                        <button
+                            onClick={() => {
+                                if(user) {
+                                    document.getElementById("pay_modal").showModal()
+                                } else {
+                                    Swal.fire({
+                                        title: "Please Login",
+                                        text: "You need to be logged in to pay bills.",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonText: "Login",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            navigate("/login", { state: { from: location } });
+                                        }
+                                    });
+                                }
+                            }}
+                            className="btn btn-primary btn-lg w-full text-white shadow-lg"
+                        >
+                            {user ? "Pay Now" : "Login to Pay"}
+                        </button>
+                    ) : (
+                        <button disabled className="btn btn-disabled btn-lg w-full">
+                            Pay Disabled (Wrong Month)
+                        </button>
+                    )}
+                </div>
             </div>
-          </div>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+                <div className="card bg-base-100 dark:bg-base-300 shadow-xl mb-8">
+                    <div className="card-body">
+                        <h2 className="card-title text-2xl border-b border-base-content/10 pb-4 mb-4">Overview</h2>
+                        <p className="text-base-content/80 leading-relaxed">
+                            {bill.description || "No description provided for this bill."}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 className="text-xl font-bold mb-4">Related Bills</h3>
+                <div className="flex flex-col gap-4">
+                    {relatedBills.length > 0 ? (
+                        relatedBills.map(related => (
+                            <Link to={`/bills/${related._id}`} key={related._id} className="card card-side bg-base-100 dark:bg-base-300 shadow-sm hover:shadow-md transition-all border border-base-200">
+                                <figure className="w-24">
+                                    <img src={related.image} alt={related.title} className="w-full h-full object-cover" />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h4 className="card-title text-sm">{related.title}</h4>
+                                    <p className="text-primary font-bold">৳{related.amount}</p>
+                                </div>
+                            </Link>
+                        ))
+                    ) : (
+                        <p className="opacity-60">No related bills found.</p>
+                    )}
+                </div>
+            </div>
+        </div>
+
       </div>
 
       <dialog id="pay_modal" className="modal modal-bottom sm:modal-middle">
