@@ -41,7 +41,6 @@ const CareersPage = () => {
     <div className="min-h-screen bg-base-200 py-12 px-4">
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        {/* Left Side: Culture & Benefits */}
         <div className="card bg-primary text-primary-content shadow-xl h-full">
           <div className="card-body justify-center p-10">
             <h2 className="text-3xl font-bold mb-6">Build the Future</h2>
@@ -83,7 +82,6 @@ const CareersPage = () => {
           </div>
         </div>
 
-        {/* Right Side: Application Form */}
         <div className="card bg-base-100 dark:bg-base-300 shadow-2xl border border-base-200 dark:border-base-content/5">
           <form onSubmit={handleApply} className="card-body p-8 md:p-10 gap-4">
             
@@ -92,7 +90,6 @@ const CareersPage = () => {
               <p className="text-base-content/70">Drop your details below. We are always hiring!</p>
             </div>
 
-            {/* Name Field */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Full Name</span>
@@ -111,7 +108,6 @@ const CareersPage = () => {
               </div>
             </div>
 
-            {/* Email Field */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Email Address</span>
@@ -130,7 +126,6 @@ const CareersPage = () => {
               </div>
             </div>
 
-            {/* LinkedIn/Portfolio Field */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">LinkedIn / Portfolio</span>
@@ -149,7 +144,6 @@ const CareersPage = () => {
               </div>
             </div>
 
-            {/* Cover Letter Field */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Cover Letter (Optional)</span>
@@ -166,7 +160,6 @@ const CareersPage = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
             <div className="form-control mt-4">
               <button className="btn btn-primary text-white text-lg shadow-lg hover:shadow-primary/40 transition-all gap-2">
                 Submit Application <FaPaperPlane className="text-sm" />
