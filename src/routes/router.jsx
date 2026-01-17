@@ -14,6 +14,8 @@ import Footer from "../components/Footer";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import CareersPage from "../pages/CareersPage";
+import DashboardLayout from "../layouts/DashboardLayout";
+import DashboardHome from "../pages/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -50,37 +52,47 @@ const router = createBrowserRouter([
         Component: AboutPage
       },
       {
-        path: "profile",
-        element: (
-          <PrivateRoute>
-            <ProfilePage></ProfilePage>
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "bills",
         loader: () => fetch("http://localhost:3000/bills"),
         Component: BillsPage,
-      },
-      {
-        path: "my-pay-bills",
-        element: (
-          <PrivateRoute>
-            <MyPayBills></MyPayBills>
-          </PrivateRoute>
-        ),
       },
       {
         path: "bills/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:3000/bills/${params.id}`),
         element: (
-          <BillDetailsPage></BillDetailsPage>
+          <PrivateRoute>
+            <BillDetailsPage></BillDetailsPage>
+          </PrivateRoute>
         ),
       },
       {
         path: "about",
         Component: AboutPage,
+      },
+    ],
+  },
+
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    errorElement: <NotFoundPage />,
+    children: [
+      {
+        index: true,
+        Component: DashboardHome,
+      },
+      {
+        path: "profile",
+        Component: ProfilePage,
+      },
+      {
+        path: "my-pay-bills",
+        Component: MyPayBills,
       },
     ],
   },

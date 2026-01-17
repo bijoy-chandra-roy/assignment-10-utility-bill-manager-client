@@ -32,7 +32,7 @@ const NavBar = () => {
       {user && (
         <>
           <li>
-            <NavLink to="/my-pay-bills" className={({ isActive }) => (isActive ? "font-bold text-primary bg-primary/10 rounded-lg" : "font-medium hover:text-primary transition-colors rounded-lg")}>
+            <NavLink to="/dashboard/my-pay-bills" className={({ isActive }) => (isActive ? "font-bold text-primary bg-primary/10 rounded-lg" : "font-medium hover:text-primary transition-colors rounded-lg")}>
               My Pay Bills
             </NavLink>
           </li>
@@ -102,7 +102,7 @@ const NavBar = () => {
             </div>
             <ul tabIndex={-1} className="menu menu-sm dropdown-content mt-3 p-2 w-auto min-w-max bg-base-100 rounded-box shadow-lg border border-base-200 z-50">
               <li>
-                <Link to="/profile" className="justify-between font-medium">
+                <Link to="/dashboard/profile" className="justify-between font-medium">
                   {user.displayName || "Profile"}
                 </Link>
               </li>

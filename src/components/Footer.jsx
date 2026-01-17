@@ -25,7 +25,7 @@ const Footer = () => {
             <Link to="/bills" className="hover:text-blue-600 hover:underline transition">
               Bills
             </Link>
-            <Link to="/my-pay-bills" className="hover:text-blue-600 hover:underline transition">
+            <Link to="/dashboard/my-pay-bills" className="hover:text-blue-600 hover:underline transition">
               My Pay Bills
             </Link>
           </div>
