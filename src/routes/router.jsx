@@ -12,6 +12,8 @@ import PrivateRoute from "../providers/PrivateRoute";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import AboutPage from "../pages/AboutPage";
+import ContactPage from "../pages/ContactPage";
+import CareersPage from "../pages/CareersPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,22 @@ const router = createBrowserRouter([
       {
         path: "register",
         Component: RegisterPage,
+      },
+      {
+        path: "contact",
+        Component: ContactPage,
+      },
+      {
+        path: "careers",
+        Component: CareersPage,
+      },
+      {
+        path: "terms",
+        Component: AboutPage
+      },
+      {
+        path: "privacy",
+        Component: AboutPage
       },
       {
         path: "profile",
@@ -57,7 +75,7 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:3000/bills/${params.id}`),
         element: (
-            <BillDetailsPage></BillDetailsPage>
+          <BillDetailsPage></BillDetailsPage>
         ),
       },
       {
