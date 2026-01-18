@@ -13,6 +13,8 @@ const LoginPage = () => {
     };
   }, []);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
@@ -22,10 +24,7 @@ const LoginPage = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     setError("");
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-
+    
     signInUser(email, password)
       .then(() => {
         const redirectPath = location.state?.from || "/";
@@ -50,6 +49,11 @@ const LoginPage = () => {
       });
   };
 
+  const handleDemoLogin = () => {
+    setEmail("demo@user.com");
+    setPassword("Demo1234");
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-base-200">
       <div className="card bg-base-100 dark:bg-base-300 w-full max-w-sm shadow-2xl">
@@ -60,7 +64,15 @@ const LoginPage = () => {
             <label className="label">
               <span className="label-text">Email</span>
             </label>
-            <input type="email" name="email" placeholder="Email" className="input input-bordered w-full" required />
+            <input 
+                type="email" 
+                name="email" 
+                placeholder="Email" 
+                className="input input-bordered w-full" 
+                required 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           <div className="form-control mt-4">
@@ -75,6 +87,8 @@ const LoginPage = () => {
                 className="input input-bordered w-full pr-10"
                 required
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -95,9 +109,19 @@ const LoginPage = () => {
 
           {error && <p className="text-error text-xs mt-2">{error}</p>}
 
-          <button type="submit" className="btn btn-primary mt-4 w-full">
-            Log In
-          </button>
+          <div className="flex flex-col gap-3 mt-4">
+            <button type="submit" className="btn btn-primary w-full">
+                Log In
+            </button>
+            
+            <button 
+                type="button" 
+                onClick={handleDemoLogin} 
+                className="btn btn-outline w-full"
+            >
+                Demo User Credential
+            </button>
+          </div>
 
           <button
             type="button"
