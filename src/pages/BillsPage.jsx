@@ -29,7 +29,7 @@ const BillsPage = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await fetch("http://localhost:3000/categories");
+                const res = await fetch("https://assignment-10-utility-bill-manager.vercel.app/categories");
                 const data = await res.json();
                 setCategories(data);
             } catch (err) {
@@ -55,7 +55,7 @@ const BillsPage = () => {
 
                 if (categoryQuery) setSearchParams({ category: categoryQuery });
 
-                const res = await fetch(`http://localhost:3000/bills?${params.toString()}`);
+                const res = await fetch(`https://assignment-10-utility-bill-manager.vercel.app/bills?${params.toString()}`);
                 const data = await res.json();
 
                 if (data.bills) {

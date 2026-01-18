@@ -5,7 +5,7 @@ const RecentBills = () => {
   const [bills, setBills] = useState([]);
 
   useEffect(() => {
-    fetch(`${  "http://localhost:3000"}/bills?limit=6`)
+    fetch(`${  "https://assignment-10-utility-bill-manager.vercel.app"}/bills?limit=6`)
       .then((res) => res.json())
       .then((data) => setBills(data));
   }, []);

@@ -27,7 +27,7 @@ const LoginPage = () => {
     
     signInUser(email, password)
       .then(() => {
-        const redirectPath = location.state?.from || "/";
+        const redirectPath = location.state || "/";
         navigate(redirectPath, { replace: true });
       })
       .catch((err) => {
@@ -40,7 +40,7 @@ const LoginPage = () => {
     setError("");
     signInWithGoogle()
       .then(() => {
-        const redirectPath = location.state?.from || "/";
+        const redirectPath = location.state || "/";
         navigate(redirectPath, { replace: true });
       })
       .catch((err) => {

@@ -10,7 +10,7 @@ const DashboardHome = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-bills/${user.email}`)
+      fetch(`https://assignment-10-utility-bill-manager.vercel.app/my-bills/${user.email}`)
         .then(res => res.json())
         .then(data => {
             setBills(data);
